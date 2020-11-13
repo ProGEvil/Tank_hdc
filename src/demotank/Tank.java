@@ -1,13 +1,16 @@
 package demotank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     Dir dir = Dir.DOWN;
     private  int x,y;
-    private static final int SPEED = 3;
-    private boolean moving = false;
+    private static final int SPEED = 1;
+    private boolean moving = true;
     private tankFrame tf = null;
+    private Random random = new Random();
+    private Group group = Group.BAD;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private boolean living = true;
@@ -44,10 +47,19 @@ public class Tank {
         this.moving = moving;
     }
 
-    public Tank(int x, int y, Dir dir, tankFrame tf) {
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Tank(int x, int y, Dir dir, Group group, tankFrame tf) {
         super();
         this.x = x;
         this.y = y;
+        this.group = group;
         this.dir = dir;
         this.tf = tf;
     }
@@ -95,14 +107,14 @@ public class Tank {
                     y += SPEED;
                     break;
             }
+            if(random.nextInt(10) > 8) this.fire();
 
     }
 
     public void fire() {
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
-
+        tf.bullets.add(new Bullet(bX,bY,this.dir,this.group,this.tf));
     }
 
     public void die() {
