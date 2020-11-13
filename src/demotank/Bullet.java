@@ -5,12 +5,12 @@ import java.awt.*;
 
 
 public class Bullet {
-    private static final int SPEED = 10;
+    private static final int SPEED = 12;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x,y;
     private Dir dir;
-    private boolean live = true;
+    private boolean living = true;
     tankFrame tf = null;
 
 
@@ -23,7 +23,7 @@ public class Bullet {
     }
 
     public void paint(Graphics g){
-        if(!live){
+        if(!living){
             tf.bullets.remove(this);
         }
         Color c = g.getColor();
@@ -61,6 +61,20 @@ public class Bullet {
                 y+=SPEED;
                 break;
         }
-        if(x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) live = false;
+        if(x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) living = false;
+    }
+
+    public void collideWith(Tank tank) {
+        Rectangle rec1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+        Rectangle rec2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
+        if (rec1.intersects(rec2)){
+            tank.die();
+            this.die();
+        }
+
+    }
+
+    private void die() {
+        this.living = false;
     }
 }

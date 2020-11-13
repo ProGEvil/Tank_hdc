@@ -3,10 +3,11 @@ package demotank;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         tankFrame tF = new tankFrame();
+        for (int i = 0; i < 5; i++) {
+            tF.tanks.add(new Tank(50 + i*80,200, Dir.DOWN, tF));
+        }
         while (true) {
-            for (int i = 0; i < 5; i++) {
-                tF.tanks.add(new Tank(50 + i*80,200, Dir.DOWN, tF));
-            }
+
             Thread.sleep(50);
             tF.repaint();
 

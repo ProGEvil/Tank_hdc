@@ -3,16 +3,30 @@ package demotank;
 import java.awt.*;
 
 public class Tank {
-    private  int x,y;
     Dir dir = Dir.DOWN;
-    private static final int SPEED = 5;
+    private  int x,y;
+    private static final int SPEED = 3;
     private boolean moving = false;
-
+    private tankFrame tf = null;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    private boolean living = true;
 
-    private tankFrame tf = null;
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public Dir getDir() {
         return dir;
@@ -40,7 +54,9 @@ public class Tank {
 
     public void paint(Graphics g) {
 
-
+        if(!living){
+            tf.tanks.remove(this);
+        }
         Color c = g.getColor();
         switch (dir) {
             case LEFT:
@@ -54,6 +70,8 @@ public class Tank {
                 break;
             case DOWN:
                 g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+            default:
                 break;
         }
         move();
@@ -85,5 +103,9 @@ public class Tank {
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
 
+    }
+
+    public void die() {
+        this.living = false;
     }
 }
