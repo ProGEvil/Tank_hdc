@@ -17,6 +17,7 @@ public class tankFrame extends Frame {
     List<Tank> tanks = new ArrayList<>();
     Tank mytank = new Tank(600,800,Dir.UP,Group.GOOD,this);
     Bullet mybullet = new Bullet(100,100,Dir.DOWN,Group.GOOD,this);
+    Explode explode = new Explode(100,200,this);
     
 
     @Override
@@ -43,6 +44,7 @@ public class tankFrame extends Frame {
 
             }
         }
+        explode.paint(g);
 
 
 
