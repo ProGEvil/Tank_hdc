@@ -15,9 +15,9 @@ public class tankFrame extends Frame {
     public static final int GAME_HEIGHT = 1000;
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
+    List<Explode> explodes = new ArrayList<>();
     Tank mytank = new Tank(600,800,Dir.UP,Group.GOOD,this);
     Bullet mybullet = new Bullet(100,100,Dir.DOWN,Group.GOOD,this);
-    Explode explode = new Explode(100,200,this);
     
 
     @Override
@@ -41,11 +41,11 @@ public class tankFrame extends Frame {
         for (int i = 0; i < bullets.size(); i++) {
             for (int j = 0; j < tanks.size(); j++){
                 bullets.get(i).collideWith(tanks.get(j));
-
             }
         }
-        explode.paint(g);
-
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
 
 
     }

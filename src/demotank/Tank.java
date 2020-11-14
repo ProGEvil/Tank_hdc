@@ -106,6 +106,8 @@ public class Tank {
                 case DOWN:
                     y += SPEED;
                     break;
+                default:
+                    break;
             }
             if(random.nextInt(10) > 8) this.fire();
 
