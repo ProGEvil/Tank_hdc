@@ -2,8 +2,6 @@ package demotank;
 
 import java.awt.*;
 
-
-
 public class Bullet {
     private static final int SPEED = 12;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -74,7 +72,9 @@ public class Bullet {
         if (rec1.intersects(rec2)){
             tank.die();
             this.die();
-            tf.explodes.add(new Explode(this.x,this.y,tf));
+            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+            tf.explodes.add(new Explode(eX,eY,tf));
         }
     }
 
