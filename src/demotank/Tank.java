@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tank {
     Dir dir = Dir.DOWN;
     private  int x,y;
-    private static final int SPEED = 1;
+    private static final int SPEED = 2;
     private boolean moving = true;
     private tankFrame tf = null;
     private Random random = new Random();
@@ -113,6 +113,15 @@ public class Tank {
             }
             if(this.group==Group.BAD && random.nextInt(100) > 95) this.fire();
             if(this.group==Group.BAD && random.nextInt(100) > 95) randomDir();
+
+            boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if(this.x<2) x = 2;
+        if(this.y<28) y = 28;
+        if(this.x > tankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = tankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if(this.y > tankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = tankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
 
     private void randomDir() {
@@ -123,6 +132,8 @@ public class Tank {
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         tf.bullets.add(new Bullet(bX,bY,this.dir,this.group,this.tf));
+
+        if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
     }
 
     public void die() {

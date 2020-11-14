@@ -6,11 +6,10 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             tF.tanks.add(new Tank(50 + i*80,200, Dir.DOWN,Group.BAD,tF));
         }
-        new Thread(()-> new Audio("audio/war1.wav").loop()).start();
 
         while (true) {
 
-            Thread.sleep(50);
+            Thread.sleep(25);
             tF.repaint();
 
         }

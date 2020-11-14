@@ -3,7 +3,7 @@ package demotank;
 import java.awt.*;
 
 public class Bullet {
-    private static final int SPEED = 12;
+    private static final int SPEED = 6;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x,y;

@@ -74,6 +74,7 @@ public class tankFrame extends Frame {
                     break;
             }
             setMainTankDir();
+            new Thread(()->new Audio("audio/tank_move.wav").play()).start();
         }
         @Override
         public void keyReleased(KeyEvent e) {
