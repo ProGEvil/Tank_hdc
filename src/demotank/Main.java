@@ -3,7 +3,10 @@ package demotank;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         tankFrame tF = new tankFrame();
-        for (int i = 0; i < 5; i++) {
+
+        int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
+
+        for (int i = 0; i < initTankCount; i++) {
             tF.tanks.add(new Tank(50 + i*80,200, Dir.DOWN,Group.BAD,tF));
         }
 

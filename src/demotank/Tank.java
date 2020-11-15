@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class Tank {
     Dir dir = Dir.DOWN;
+    Rectangle rect = new Rectangle();
+
     private  int x,y;
     private static final int SPEED = 2;
     private boolean moving = true;
@@ -62,6 +64,11 @@ public class Tank {
         this.group = group;
         this.dir = dir;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.height = HEIGHT;
+        rect.width = WIDTH;
     }
 
     public void paint(Graphics g) {
@@ -115,6 +122,9 @@ public class Tank {
             if(this.group==Group.BAD && random.nextInt(100) > 95) randomDir();
 
             boundsCheck();
+            //update rect
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     private void boundsCheck() {
@@ -139,4 +149,5 @@ public class Tank {
     public void die() {
         this.living = false;
     }
+
 }

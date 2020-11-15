@@ -1,5 +1,7 @@
 package demotank;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.fixed.FixedWidthFieldLengths;
+
 import java.awt.*;
 
 public class Bullet {
@@ -7,6 +9,9 @@ public class Bullet {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x,y;
+
+    Rectangle rect = new Rectangle();
+
     private Dir dir;
     private Group group = Group.BAD;
     private boolean living = true;
@@ -20,6 +25,11 @@ public class Bullet {
         this.group = group;
         this.dir = dir;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height= HEIGHT;
     }
 
     public void paint(Graphics g){
@@ -61,15 +71,19 @@ public class Bullet {
                 y+=SPEED;
                 break;
         }
+        //update rect
+        rect.x = this.x;
+        rect.y = this.y;
+
         if(x < 0 || y < 0 || x > tankFrame.GAME_WIDTH || y > tankFrame.GAME_HEIGHT) living = false;
     }
 
     public void collideWith(Tank tank) {
         if (this.group==tank.getGroup()) return;
 
-        Rectangle rec1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rec2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
-        if (rec1.intersects(rec2)){
+        Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
+        if (rect.intersects(tank.rect)){
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
